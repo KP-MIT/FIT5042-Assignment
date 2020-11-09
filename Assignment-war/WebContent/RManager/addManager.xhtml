@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title> <!-- #{titleController.pageTitle} --></title>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                   <!--  #{titleController.pageTitle}  --> - Add Manager
+                </div>
+            </div>
+            <div>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Create"/></h1>
+                <table class="table table-bordered ">
+
+                    <tr class="#{!managerName.valid ? 'has-error' : 'none'}">
+                        <td width ="200">
+                            <h:outputLabel value="Manager Name" for="managerName" />
+                        </td>
+                        <td>
+                            <h:inputText id="managerName" value="#{managerAddController.manager.managerName}" title="managerName" 
+                            		required="true" requiredMessage="Please enter manager name.">
+							</h:inputText> <br /> <h:message for="managerName"
+									class="#{!managerName.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+                    
+                    
+                    <tr class="#{!dept.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Department" for="dept" />
+                        </td>
+                        <td>
+                            <h:inputText id="dept" value="#{managerAddController.manager.dept}" title="dept" 
+                            			required="true" requiredMessage="Please enter department!"/> <br />
+                            <h:message for="dept" class="#{!dept.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+                </table>
+				<div>
+                <h:commandButton id="submit" value="Submit" action="#{managerAddController.addManager(managerAddController.manager)}" class="btn btn-primary" />
+                <h:link id="close" value="Close" outcome="/faces/RManager/viewManager.xhtml"
+						          class="btn btn-primary" />
+				</div>
+				<div>
+				<h:link id="home" value="Home" outcome="/faces/Index/index.xhtml"
+						          class="btn btn-primary" />
+				</div>
+				
+				
+            </h:form>
+
+        </f:view>
+            </div>
+        </div>
+
+    </h:body>
+</html>

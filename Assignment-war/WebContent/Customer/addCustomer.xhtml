@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title> <!-- #{titleController.pageTitle} --></title>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                   <!--  #{titleController.pageTitle}  --> - Add Customer
+                </div>
+            </div>
+            <div>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Create"/></h1>
+                <table class="table table-bordered ">
+
+                    <tr class="#{!customerName.valid ? 'has-error' : 'none'}">
+                        <td width ="200">
+                            <h:outputLabel value="Customer Name" for="customerName" />
+                        </td>
+                        <td>
+                            <h:inputText id="customerName" value="#{customerAddController.customer.customerName}" title="customerName" 
+                            		required="true" requiredMessage="Please enter customer name.">
+							</h:inputText> <br /> <h:message for="customerName"
+									class="#{!customerName.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+
+                    <tr class="#{!address.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Address" for="address" />
+                        </td>
+                        <td>
+                            <h:inputText id="address" value="#{customerAddController.customer.address}" title="address" 
+                            		required="true" requiredMessage="Please enter the customer Address!">
+                        	</h:inputText> <br /> <h:message for="address"
+                        	class="#{!address.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+
+                    <tr class="#{!industry.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Industry" for="industry" />
+                        </td>
+                        <td>
+                           <h:selectOneMenu id="industry" value="#{customerAddController.industry}" required="true"
+                           requiredMessage="please select industry.">
+									<f:selectItem itemValue="#{null}" itemLabel="--select--" />
+									<f:selectItems value="#{customerAddController.getIndustries()}"
+										var="c" itemLabel="#{c}" itemValue="#{c}" />
+                            <h:message for="industry" class="#{!industry.valid ? 'label label-warning' : 'none'}" />
+                        </h:selectOneMenu>
+                        </td>
+
+                    </tr>
+
+                    <tr class="#{!country.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Country" for="country" />
+                        </td>
+                        <td>
+                            <h:inputText id="country" value="#{customerAddController.customer.country}" title="country"
+                            		required="true" requiredMessage="Please enter the country!"/> <br />
+                            <h:message for="country" class="#{!country.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+                    <tr class="#{!unitPurchased.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Units Purchased" for="unitPurchased" />
+                        </td>
+                        <td>
+                            <h:inputText id="unitPurchased" value="#{customerAddController.customer.unitPurchased}" title="unitPurchased" 
+                            			required="true" requiredMessage="Please enter the units!"
+										validatorMessage="Please enter a postcode between 200 and 25000">
+										<f:validateLongRange minimum="200" maximum="25000" />
+							</h:inputText> <br /> <h:message for="unitPurchased"
+									class="#{!unitPurchased.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputLabel value="Join Date" for="joinDate" />
+                        </td>
+                        <td>
+                            <h:inputText id="joinDate" value="#{customerAddController.customer.joinDate}" title="joinDate" 
+                            		required="true" requiredMessage="Please enter the joining date!">
+							</h:inputText> <br /> <h:message for="joinDate"
+									class="#{!joinDate.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+                    <tr>
+                    <td><h:outputLabel value="Manager:" for="relationManager" /></td>
+							<td><h:selectOneMenu id="relationManager" value="#{customerAddController.managerId}">
+									<f:selectItem itemValue="#{null}" itemLabel="--select--" />
+									<f:selectItems value="#{managerManagedBean.getAllManagers()}"
+										var="c" itemLabel="#{c.managerName}" itemValue="#{c.managerId}" />
+							</h:selectOneMenu></td>
+                    </tr>
+                </table>
+                <div>
+                <h:commandButton id="submit" value="Submit" action="#{customerAddController.addCustomer(customerAddController.customer)}" class="btn btn-primary" />
+                <h:link id="close" value="Close" outcome="/faces/Customer/viewCustomer.xhtml"
+						          class="btn btn-primary" />
+				</div>
+				<div>
+				<h:link id="home" value="Home" outcome="/faces/Index/index.xhtml"
+						          class="btn btn-primary" />
+				</div>
+            </h:form>
+
+        </f:view>
+            </div>
+        </div>
+
+    </h:body>
+</html>

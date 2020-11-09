@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title> <!-- #{titleController.pageTitle} --></title>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                   <!--  #{titleController.pageTitle}  --> - Add Admin
+                </div>
+            </div>
+            <div>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Create"/></h1>
+                <table class="table table-bordered ">
+
+                    <tr class="#{!adminName.valid ? 'has-error' : 'none'}">
+                        <td width ="200">
+                            <h:outputLabel value="Admin Name" for="adminName" />
+                        </td>
+                        <td>
+                            <h:inputText id="adminName" value="#{adminAddController.admin.adminName}" title="adminName" 
+                            		required="true" requiredMessage="Please enter admin name.">
+							</h:inputText> <br /> <h:message for="adminName"
+									class="#{!adminName.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+                    
+                    
+                    <tr class="#{!email.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="E-Mail" for="email" />
+                        </td>
+                        <td>
+                            <h:inputText id="email" value="#{adminAddController.admin.email}" title="email" 
+                            			required="true" requiredMessage="Please enter email!"/> <br />
+                            <h:message for="email" class="#{!email.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+
+                    <tr class="#{!phoneNumber.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Phone Number" for="phoneNumber" />
+                        </td>
+                        <td>
+                            <h:inputText id="phoneNumber" value="#{adminAddController.admin.phoneNumber}" title="phoneNumber" 
+                            		required="true" requiredMessage="Please enter phone number!">
+                        	</h:inputText> <br /> <h:message for="phoneNumber"
+                        	class="#{!phoneNumber.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+
+                    <tr class="#{!adminUserName.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Admin User Name" for="adminUserName" />
+                        </td>
+                        <td>
+                            <h:inputText id="adminUserName" value="#{adminAddController.admin.adminUserName}" title="adminUserName"
+                            		required="true" requiredMessage="Please enter Admin user name!"/> <br />
+                            <h:message for="adminUserName" class="#{!adminUserName.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+					</tr>
+					<tr class="#{!dateOfBirth.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="D.O.B" for="dateOfBirth" />
+                        </td>
+                        <td>
+                            <h:inputText id="dateOfBirth" value="#{adminAddController.admin.dateOfBirth}" title="dateOfBirth"
+                            		required="true" requiredMessage="Please enter date of birth!"/> <br />
+                            <h:message for="dateOfBirth" class="#{!dateOfBirth.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+					</tr>
+					</table>
+				<div>
+                <h:commandButton id="submit" value="Submit" action="#{adminAddController.addAdmin(adminAddController.admin)}" class="btn btn-primary" />
+                <h:link id="close" value="Close" outcome="/faces/Admin/viewAdmin.xhtml"
+						          class="btn btn-primary" />
+				</div>
+				<div>
+				<h:link id="home" value="Home" outcome="/faces/Index/index.xhtml"
+						          class="btn btn-primary" />
+				</div>
+				
+				
+            </h:form>
+
+        </f:view>
+            </div>
+        </div>
+
+    </h:body>
+</html>

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title> <!-- #{titleController.pageTitle}  --> </title>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    <!-- #{titleController.pageTitle}  --> - Edit Manager
+                </div>
+            </div>
+
+            <h:form id="MyForm">
+                <table class="table table-bordered ">
+
+                    <tr>
+                        <td width ="150" valign="top"> Manager Id</td>
+
+                        <td valign="bottom">
+                            <h:outputLabel id = "Id" >#{managerEditController.manager.managerId}</h:outputLabel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top"> Manager Name: </td>
+                        <td valign="bottom">
+                            <h:inputText id = "managerName" value="#{managerEditController.manager.managerName}" binding="#{managerName}"
+                             required="true" requiredMessage="Please enter manager name. ">
+							</h:inputText>
+                        </td>
+                    </tr>
+                   
+                    <tr>
+                        <td width ="100" valign="top"> Manager Department: </td>
+
+                        <td valign="bottom">
+                            <h:inputText id = "dept" value="#{managerEditController.manager.dept}"  
+                            required="true" requiredMessage="Please enter department. ">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    
+                                        
+                </table>
+
+                <h:commandButton id="save" value="Save" action="#{managerEditController.editManager(managerEditController.manager)}"  class="btn btn-primary" >
+                    <f:param name="managerID" value="#{managerEditController.managerId+1}"/>
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="/faces/RManager/viewManager.xhtml"
+						          class="btn btn-primary" />
+
+            </h:form>
+        </div>
+        <div>
+        <h:link id="home" value="Home" outcome="/faces/Index/index.xhtml"
+						          class="btn btn-primary" /></div>
+    </h:body>
+</html>

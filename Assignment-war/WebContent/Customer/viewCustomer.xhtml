@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title> <!-- #{titleController.pageTitle} --> Index</title>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                   <!-- #{titleController.pageTitle} - Property  List --> Customer List
+                </div>
+            </div>
+
+            <h:form id="MyForm">
+                <table class="table table-bordered table-striped">
+                    <!-- For each property in properties ArrayList... -->
+                    <tr>
+                            <td>
+                                <h:outputLabel id="Id" value="Customer Id"  />
+                            </td>
+                            <td>
+                                <h:outputLabel id="name" value="Customer Name"  />
+                            </td>
+
+                            <td>
+                                <h:outputLabel id="Country" value="Country"/>
+                            </td>
+                          
+                            <td>
+                                <h:outputLabel id="Industry" value="Industry"/>
+                            </td>
+               
+                            <td>
+                                <h:outputLabel id="unitPurchased" value="Units Purchased"/>
+                            </td>
+                            
+                            <td>
+                                <h:outputLabel id="relationManagerId" value="Relation Manager"/>
+                            </td>
+
+                     </tr>
+
+                    <ui:repeat id="Myrepeat" value="#{customerViewController.customers}"  var="customer" varStatus="status">
+
+                           <tr>
+                            <td>
+                                <h:outputText value="#{customerViewController.customers.get(status.index).customerId}" id="customerID" />
+
+                            </td>
+
+                            <td>
+                                <h:outputText id="outName" value="#{customerViewController.customers.get(status.index).customerName}"  />
+                            </td>
+                            <td>
+                                <h:outputText id="outCountry" value="#{customerViewController.customers.get(status.index).country}"/>
+                            </td>
+                                                        
+                            <td>
+                                <h:outputText id="outIndustry" value="#{customerViewController.customers.get(status.index).industry}"></h:outputText>
+                            </td>
+                            
+                            <td>
+                                <h:outputText id="outUnits" value="#{customerViewController.customers.get(status.index).unitPurchased}"></h:outputText>
+                            </td>
+                            <td>
+                                <h:outputText id="outRmId" value="#{customerViewController.customers.get(status.index).relationManager.managerName}"></h:outputText>
+                            </td>
+                            <td>
+                            
+                            <h:link value="Contact |" outcome="/faces/Customer/customerContactDetail.xhtml">
+                              <!-- pass the parameter to next page, the param name is propertyID, and the value is index + 1.
+                                You can get the value from next page using the indexController -->
+           						<f:param name="customerID" value="#{customerViewController.customers.get(status.index).customerId}"/>
+           					</h:link>
+           					
+           					<h:link value="View | " outcome="/faces/Customer/detailCustomer.xhtml">
+                              <!-- pass the parameter to next page, the param name is propertyID, and the value is index + 1.
+                                You can get the value from next page using the indexController -->
+                                <f:param name="customerID" value="#{customerViewController.customers.get(status.index).customerId}"/>
+                              </h:link>
+
+                              <h:link value="Edit | " outcome="/faces/Customer/editCustomer.xhtml">
+                              <!-- pass the parameter to next page, the param name is propertyID, and the value is index + 1.
+                                You can get the value from next page using the indexController -->
+                                <f:param name="customerID" value="#{status.index + 1}"/>
+                              </h:link>
+
+                                <h:commandLink value="Delete" action="#{customerViewController.removeCustomer(customerViewController.customers.get(status.index).customerId)}" disabled="#{customerViewController.customers.get(status.index).customerId == null}">
+                                </h:commandLink>
+
+                                <h:outputText value=" "/>
+                            </td>
+                            </tr>
+                           
+                    </ui:repeat>
+
+                </table>
+
+                <div>
+                	
+                	<h:commandButton id="add" value="Add" action="/faces/Customer/addCustomer.xhtml" class="btn btn-primary" />
+                	
+                    <h:commandButton id="viewAll" value="View All" action="#{customerViewController.searchAll()}" class="btn btn-primary" >
+                        <f:param name="customerID" value="#{status.index + 1}"/>
+                    </h:commandButton>
+                </div>
+                
+                <div>
+                    <h:inputText value="#{customerViewController.searchId}" id="searchById" required="true" onchange ="if (document.getElementById('MyForm:searchById').value.trim() == '') {document.getElementById('MyForm:searchById').value = 0;} "   />
+                    <h:commandButton id="searchId" value="Search by Id" action="#{customerViewController.searchCustomerById(customerViewController.searchId)}" class="btn btn-primary" >
+                        <f:param name="customerID" value="#{status.index + 1}"/>
+                    </h:commandButton>
+                </div>
+                <div>
+                    <h:inputText value="#{customerViewController.unitPurchased}" id="searchByUnitPurchased" required="true" onchange="if (document.getElementById('MyForm:searchByUnitPurchased').value.trim() == '') {document.getElementById('MyForm:searchByUnitPurchased').value = 0.0;} " />
+                    <h:commandButton id="searchUnitPurchased" value="Search by Units Purchased" action="#{customerViewController.searchCustomerByUnitPurchased(customerViewController.unitPurchased)}" class="btn btn-primary" >
+                        <f:param name="propertyID" value="#{status.index + 1}"/>
+                    </h:commandButton>
+                </div>
+                <div>
+                    <h:link id="home" value="Home" outcome="/faces/Index/index.xhtml"
+						          class="btn btn-primary" />
+                </div>
+                
+            </h:form>
+        </div>
+    </h:body>
+</html>

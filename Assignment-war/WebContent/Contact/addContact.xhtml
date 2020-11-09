@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title> <!-- #{titleController.pageTitle} --></title>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                   <!--  #{titleController.pageTitle}  --> - Add Contact
+                </div>
+            </div>
+            <div>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Create"/></h1>
+                <table class="table table-bordered ">
+
+                    <tr class="#{!firstName.valid ? 'has-error' : 'none'}">
+                        <td width ="200">
+                            <h:outputLabel value="First Name" for="firstName" />
+                        </td>
+                        <td>
+                            <h:inputText id="firstName" value="#{contactAddController.firstName}" title="firstName" 
+                            		required="true" requiredMessage="Please enter first name.">
+							</h:inputText> <br /> <h:message for="firstName"
+									class="#{!firstName.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+                    
+                    <tr class="#{!lastName.valid ? 'has-error' : 'none'}">
+                        <td width ="200">
+                            <h:outputLabel value="Second Name" for="secondName" />
+                        </td>
+                        <td>
+                            <h:inputText id="lastName" value="#{contactAddController.lastName}" title="secondName" 
+                            		required="true" requiredMessage="Please enter second name.">
+							</h:inputText> <br /> <h:message for="lastName"
+									class="#{!firstName.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+                    
+                    <tr class="#{!email.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="E-Mail" for="email" />
+                        </td>
+                        <td>
+                            <h:inputText id="email" value="#{contactAddController.contact.email}" title="email" 
+                            			required="true" requiredMessage="Please enter email!"/> <br />
+                            <h:message for="email" class="#{!email.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+
+                    <tr class="#{!phoneNumber.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Phone Number" for="phoneNumber" />
+                        </td>
+                        <td>
+                            <h:inputText id="phoneNumber" value="#{contactAddController.contact.phoneNumber}" title="phoneNumber" 
+                            		required="true" requiredMessage="Please enter phone number!">
+                        	</h:inputText> <br /> <h:message for="phoneNumber"
+                        	class="#{!phoneNumber.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+
+                    </tr>
+
+                    <tr class="#{!address.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="Address" for="address" />
+                        </td>
+                        <td>
+                            <h:inputText id="address" value="#{contactAddController.contact.address}" title="address"
+                            		required="true" requiredMessage="Please enter the Address!"/> <br />
+                            <h:message for="address" class="#{!address.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+					</tr>
+					<tr>
+					<td><h:outputLabel value="Customer:" for="customer"/></td>
+							<td><h:selectOneMenu id="customer" value="#{contactAddController.customerId}">
+									<f:selectItem itemValue="#{null}" itemLabel="--select--" />
+									<f:selectItems value="#{customerManagedBean.getAllCustomers()}"
+										var="c" itemLabel="#{c.customerName}" itemValue="#{c.customerId}" />
+							</h:selectOneMenu></td>
+					</tr>
+                </table>
+				<div>
+                <h:commandButton id="submit" value="Submit" action="#{contactAddController.addContact(contactAddController.contact)}" class="btn btn-primary" />
+                <h:link id="close" value="Close" outcome="/faces/Contact/viewContact.xhtml"
+						          class="btn btn-primary" />
+				</div>
+				<div>
+				<h:link id="home" value="Home" outcome="/faces/Index/index.xhtml"
+						          class="btn btn-primary" />
+				</div>
+            </h:form>
+
+        </f:view>
+            </div>
+        </div>
+
+    </h:body>
+</html>

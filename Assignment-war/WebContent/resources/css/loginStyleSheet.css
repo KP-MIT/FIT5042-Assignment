@@ -1,0 +1,14 @@
+
+:root{
+	--radius:10px;
+}
+
+.loginForm{
+	margin-top:20px;
+	width:50%;
+	margin:auto;
+	padding:5px 10px 5px 10px;
+	border-radius:10px;
+	border:1px solid #888;
+	box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.2);
+}

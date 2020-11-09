@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title> <!-- #{titleController.pageTitle}  --> </title>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    <!-- #{titleController.pageTitle}  --> - Edit Customer
+                </div>
+            </div>
+
+            <h:form id="MyForm">
+                <table class="table table-bordered ">
+
+                    <tr>
+                        <td width ="150" valign="top">Customer Id</td>
+
+                        <td valign="bottom">
+                            <h:outputLabel id = "Id" >#{customerEditController.customer.customerId}</h:outputLabel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top"> Customer Name: </td>
+                        <td valign="bottom">
+                            <h:inputText id = "customerName" value="#{customerEditController.customer.customerName}" binding="#{customerName}"
+                             required="true" requiredMessage="Please enter customer name. ">
+							</h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Country: </td>
+
+                        <td valign="bottom">
+                            <h:inputText id = "country" value="#{customerEditController.customer.country}"  
+                            required="true" requiredMessage="Please enter country. ">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top"> Address: </td>
+
+                        <td valign="bottom">
+                            <h:inputText id = "address" value="#{customerEditController.customer.address}" 
+                             required="true" requiredMessage="Please enter a address. ">
+                            </h:inputText>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Industry: </td>
+                        <td>
+                           <h:selectOneMenu id="industry" value="#{customerEditController.industry}" required="true"
+                           requiredMessage="please select industry.">
+									<f:selectItem itemValue="#{null}" itemLabel="--select--" />
+									<f:selectItems value="#{customerEditController.getIndustries()}"
+										var="c" itemLabel="#{c}" itemValue="#{c}" />
+                            <h:message for="industry" class="#{!industry.valid ? 'label label-warning' : 'none'}" />
+                        </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width ="100" valign="top">Join Date: </td>
+
+                        <td valign="bottom">
+                            <h:inputText id = "joinDate" value="#{customerEditController.customer.joinDate}"  
+                            required="true" requiredMessage="Please enter joining date. ">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width ="100" valign="top">Units purchased: </td>
+
+                        <td valign="bottom">
+                            <h:inputText id = "unitPurchased" value="#{customerEditController.customer.unitPurchased}"  
+                            required="true" requiredMessage="Please enter units purchased. ">
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    
+                    
+                    <tr>
+							<td><h:outputLabel value="Relation Manager:" for="relationManager" /></td>
+							<td><h:selectOneMenu id="relationManager" value="#{customerEditController.managerId}">
+									<f:selectItem itemValue="#{null}" itemLabel="--select--" />
+									<f:selectItems value="#{managerManagedBean.getAllManagers()}"
+										var="c" itemLabel="#{c.managerName}" itemValue="#{c.managerId}" />
+							</h:selectOneMenu></td>
+					</tr>
+
+                </table>
+                <div>
+
+                <h:commandButton id="save" value="Save" action="#{customerEditController.editCustomer(customerEditController.customer)}"  class="btn btn-primary" >
+                    <f:param name="customerID" value="#{customerEditController.customerId+1}"/>
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="/faces/Customer/viewCustomer.xhtml"
+						          class="btn btn-primary" />
+				</div>
+				<div>
+				<h:link id="home" value="Home" outcome="/faces/Index/index.xhtml"
+						          class="btn btn-primary" />
+				</div>
+            </h:form>
+        </div>
+    </h:body>
+</html>
